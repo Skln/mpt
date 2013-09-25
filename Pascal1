@@ -1,0 +1,72 @@
+uses crt;
+type
+    axmed=record
+                artikul:integer;
+                name:string[50];
+                kol:integer;
+                cena:real;
+                marka:string[20];
+    end;
+var maga:axmed;
+    menu:char;
+    fp:file of axmed;
+
+procedure dobav;
+begin
+  ClrScr;
+  with maga do
+  begin
+    write('Товар: ');
+    readln(name);
+    write('Колличество: ');
+    readln(kol);
+    write('Цена ');
+    readln(cena);
+    write('Марка: ');
+    readln(marka);
+  end;
+
+  assign(fp,'C:\Temp\tovar.txt');
+  reset(fp);
+  write(fp,maga);
+  close(fp);
+
+end;
+
+procedure vivod;
+begin
+    assign(fp,'C:\Temp\tovar.txt');
+    reset(fp);
+    while not eof(fp) do
+    begin
+        read(fp,maga);
+        write('Товар: ',maga.name);
+        write('Количество: ',maga.kol);
+        write('Цена: ',maga.cena);
+        write('Марка: ',maga.marka);
+    
+    end;
+    readln;
+    close(fp);
+end;
+
+begin
+     repeat
+           ClrScr;
+           writeln('1-Добавить ');
+           writeln('2-Редактировать ');
+           writeln('3-Удаление ');
+           writeln('4-Просмотр ');
+           writeln('5-Востановление');
+           menu:=readkey;
+           case menu of
+           '1': dobav  ;
+           '2':        ;
+           '3':        ;
+           '4': vivod  ;
+           '5':        ;
+           '6': exit;
+           end;
+     until 2+2=5;
+
+end.
